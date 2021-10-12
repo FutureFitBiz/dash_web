@@ -19,7 +19,6 @@
         <div v-for="(item, index) in sidebarItems" :key="index">
           <v-list-item class="mt-1" :style="{ background: selectedItem === index ? '#e1f0f4' : '',  }" :disabled="statuses.items[item.key].disabled" @click="changeTab(item, index)">
             <v-list-item-icon>
-
               <v-icon v-if="item.key === 'intro'" :disabled="!statuses.finished" class="" color="blue" dense>mdi-information-outline</v-icon>
               <v-icon v-else-if="item.key === 'results' && !statuses.finished" class="" color="" dense>mdi-list-status</v-icon>
               <v-icon v-else-if="item.key === 'results'" class="" color="green" dense>mdi-checkbox-blank-circle</v-icon>
@@ -51,10 +50,6 @@
             </p>
           </v-row>
 
-
-
-
-
           <v-row justify="center">
             <!-- <v-dialog v-model="helpDialog"> -->
             <v-dialog v-model="helpDialog" width="700px">
@@ -85,9 +80,6 @@
                     In cases where a business can split its activities into two or more very distinct categories, it may be worth undertaking a separate risk assessment for each. In general it is not advisable to have more than two risk profiles,
                     since it complicates the onward communication.
                   </p>
-
-
-
 
                   <h2 class="mt-6">
                     How to determine if a characteristic is applicable
@@ -133,8 +125,6 @@
                     </li>
                   </ul>
 
-
-
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
@@ -146,15 +136,6 @@
               </v-card>
             </v-dialog>
           </v-row>
-
-
-
-
-
-
-
-
-
 
           <v-row v-if="!statuses.started" class="mt-8 ml-3 mb-5">
             <v-btn class="mx-auto" rounded color="success" @click="start">
@@ -196,27 +177,27 @@
         <div v-if="selectedItem > 0 && selectedItem < sidebarItems.length -1 && this.items" class="">
           <div class="pa-3">
 
-            <h3>
+            <h1>
               {{statuses.items[sidebarItems[selectedItem].key].name}}
-            </h3>
+            </h1>
             <h3>
-              <span class="text--secondary mt-2">
+              <h4 class="text--secondary weight  overline">
                 {{statuses.items[sidebarItems[selectedItem].key].count}} / {{statuses.items[sidebarItems[selectedItem].key].max}} questions answered
-              </span>
+              </h4>
             </h3>
             <span>
             </span>
             <div class="mt-2"> {{statuses.items[sidebarItems[selectedItem].key].description}} </div>
           </div>
           <div class="" v-for="(question, index) in items">
-            <v-row v-if="question.group_title" class="mt-3 pa-3 ml-1">
-              <h3>{{question.group_title}}</h3>
+            <v-row v-if="question.group_title" class="mt-5 pa-3 ml-1 pb-0">
+              <h3 class="primary--text">{{question.group_title}}</h3>
             </v-row>
 
             <v-list-item>
-              <v-row class="mt-3">
+              <v-row class="mt-2">
                 <v-col cols="9">
-                  <div class="text-body-1"> <b>{{index + 1}}.</b> {{question.title}} <span v-if="question.help_text" @click="showHelptext(question.code)" class="click text--secondary">more info</span> </div>
+                  <div class="text-body-1"> <b>{{index + 1}}.</b> {{question.title}}. <b v-if="question.help_text" @click="showHelptext(question.code)" class="click">More info...</b> </div>
                 </v-col>
                 <v-col cols="3">
                   <v-btn-toggle class="no-active" rounded>
@@ -258,7 +239,10 @@
             </v-col>
           </v-row>
 
-          <v-row class="mt-5 ">
+          <v-row class="ml-1 mt-5">
+            <div>Sort by...</div>
+          </v-row>
+          <v-row class="mt-2 ">
             <v-col class="d-flex">
               <v-select v-model="valuewebFilter" label="Value web" :items="filtersForValueweb" clearable dense outlined></v-select>
               <v-select v-model="riskFilter" :items="riskLabelsAll" label="Risk" class="ml-1" clearable dense outlined></v-select>
